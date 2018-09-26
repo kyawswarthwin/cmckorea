@@ -11,6 +11,8 @@ async function main(page = 1) {
     const posts = await getPosts(page);
     posts.forEach((post, index) => {
       let title = post.title.rendered.match(/^(.*?). (.*?)$/);
+      let _id = Number(title[1]);
+      let _title = decode(title[2]);
       const file = `./build/${Number(title[1])}.html`;
       title = `<h4 align="center">${title[2]}</h4>`;
       title = decode(title);
@@ -38,23 +40,26 @@ async function main(page = 1) {
       lyrics = lyrics.replace(/<br \/>\n/g, ' ');
       if (file === './build/1.html') {
         if (page === 1 && index === 1) {
+          fs.appendFileSync('db.json', `{ "id": ${_id}, "title": "${_title}" },\n`);
           fs.writeFileSync(file, lyrics);
         }
       } else if (file === './build/2.html') {
         if (page === 1 && index === 2) {
+          fs.appendFileSync('db.json', `{ "id": ${_id}, "title": "${_title}" },\n`);
           fs.writeFileSync(file, lyrics);
         }
       } else if (file === './build/487.html') {
         if (page === 49 && index === 7) {
+          fs.appendFileSync('db.json', `{ "id": ${_id}, "title": "${_title}" },\n`);
           fs.writeFileSync(file, lyrics);
         }
       } else {
+        fs.appendFileSync('db.json', `{ "id": ${_id}, "title": "${_title}" },\n`);
         fs.writeFileSync(file, lyrics);
       }
     });
     console.log(page);
     page = page + 1;
-    // if (page < 10) main(page);
     main(page);
   } catch (error) {
     console.error('Done');
