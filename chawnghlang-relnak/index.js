@@ -11,6 +11,10 @@ async function main(page = 1) {
     const posts = await getPosts(page);
     posts.forEach((post, index) => {
       let title = post.title.rendered.match(/^(.*?). (.*?)$/);
+      fs.appendFileSync(
+        'db.json',
+        `{ "id": ${Number(title[1])}, "title": "${decode(title[2])}" },\n`
+      );
       const file = `./build/${Number(title[1])}.html`;
       title = `<h4 align="center">${title[2]}</h4>`;
       title = decode(title);
