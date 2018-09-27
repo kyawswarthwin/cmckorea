@@ -26,7 +26,7 @@ async function main(page = 1) {
         value = decode(value);
         value = value.replace(/<p>(\d+|CHO|C4)([.|:]+) /, '<p><b>$1$2 </b>');
         //514
-        value = value.replace('<p>Doh is G.</p>', '<p>Doh is G</p>');
+        // value = value.replace('<p>Doh is G.</p>', '<p>Doh is G</p>');
         //98
         value = value.replace(
           '<p><a href="http://3.ka/" target="_blank" rel="nofollow">3.Ka</a> zawt tikah Khrih a ka damh, ka rilh tam ca zaang a tlawm, ka mitcaw, tihnak kha a um, Him in lam a ka hmuhsak.</p>',
