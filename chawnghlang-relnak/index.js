@@ -13,10 +13,10 @@ async function main(page = 1) {
       let title = post.title.rendered.match(/^(.*?). (.*?)$/);
       fs.appendFileSync(
         'db.json',
-        `{ "id": ${Number(title[1])}, "title": "${decode(title[2])}" },\n`
+        `{ "id": ${Number(title[1])}, "title": "${decode(title[2]).toUpperCase()}" },\n`
       );
       const file = `./build/${Number(title[1])}.html`;
-      title = `<h4 align="center">${title[2]}</h4>`;
+      title = `<h4 align="center">${title[2].toUpperCase()}</h4>`;
       title = decode(title);
       let content = post.content.rendered.split('\n');
       content = content.filter(content => {
@@ -35,6 +35,8 @@ async function main(page = 1) {
         value = value.replace(/<b><br>/g, '<br><b>');
         //23
         value = value.replace(/ <\/b>/g, '</b>');
+        //51
+        value = value.replace(/strong>/g, 'b>');
         return value;
       });
       content = content.join('\n');
